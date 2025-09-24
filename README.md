@@ -1,1 +1,3 @@
 # OnlyTimeWillTell
+
+A very simple nodejs project to test som time formats and deply to vercel ...
