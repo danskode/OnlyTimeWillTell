@@ -109,10 +109,18 @@
           return response.json();
         })
         .then((result) => {
-          document.getElementById("friday-response").textContent =
-            result.isItFriday
-              ? "Yes, it is Friday! 🎉"
-              : "No, it is not Friday. 😞";
+          if (result.isItFriday) {
+            document.getElementById("friday-response").innerHTML =
+              "Yes, it is Friday! 🎉" +
+              '<br><img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmI1d3kzd2ZqY2ltOXhoMHFxYjB5dWtnNWl6YXEydWtpY3R4dWRncyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/aLvut70j4HjqV8loD9/giphy.gif" alt="Weekend celebration" style="margin-top:12px;max-width:100%;border-radius:12px;">';
+          } else if (result.isItMonday) {
+            document.getElementById("friday-response").innerHTML =
+              "No, but it's Monday! 😳" +
+              '<br><img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjk2bzhuYWJxOGVyNDI4aTcxdXB0dDY5ZDNjdmtsY25md244Y2VybCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IlJ0FkaYggwkE/giphy.gif" alt="Monday motivation" style="margin-top:12px;max-width:100%;border-radius:12px;">';
+          } else {
+            document.getElementById("friday-response").textContent =
+              "No, it is not Friday 😞";
+          }
         })
         .catch(() => {
           document.getElementById("friday-response").textContent =
