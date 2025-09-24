@@ -108,6 +108,10 @@
         <h2 id="local-time">Your local time is:</h2>
         <p id="local-time-div" class="time-value"></p>
       </div>
+      <div class="time-section">
+        <h2 id="local-server-time">The server's local time is:</h2>
+        <p id="local-server-time-div" class="time-value"></p>
+      </div>
     </div>
     <h2 class="footer">
       Made with ❤️ by
@@ -182,6 +186,17 @@
         .catch(() => {
           document.getElementById("local-time-div").textContent =
             "Could not load local time right now.";
+        });
+
+      fetch("/localtoserver")
+        .then((response) => response.json())
+        .then((result) => {
+          document.getElementById("local-server-time-div").textContent =
+            "The current time for the server is: " + result.time;
+        })
+        .catch(() => {
+          document.getElementById("local-server-time-div").textContent =
+            "Could not load local time for server right now.";
         });
     </script>
   </body>

@@ -4,7 +4,7 @@ const app = express();
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
+  res.sendFile(process.cwd() + "/public/index.html");
 });
 
 app.get("/zulu", (req, res) => {
@@ -22,17 +22,17 @@ app.get("/iso", (req, res) => {
   res.send({ time: now });
 });
 
-app.get("/local", (req, res) => {
+app.get("/localtoserver", (req, res) => {
   const now = new Date().toString();
   res.send({ time: now });
 });
 
-const PORT = 8080;
-app.listen(PORT, (error) => {
-  if (error) {
-    console.log("Server is not running on PORT", PORT, error);
-  }
-  console.log("Server is up on PORT", PORT);
+app.get("/local", (req, res) => {
+  const now = new Date();
+  const localTime = now.toLocaleString("da-DK", {
+    timeZone: "Europe/Copenhagen",
+  });
+  res.send({ time: localTime });
 });
 
 app.get("/isitfriday", (req, res) => {
@@ -45,4 +45,13 @@ app.get("/isitfriday", (req, res) => {
   } else {
     res.send({ data: `No, today is ${dayName}.` });
   }
+});
+
+const PORT = 8080;
+
+app.listen(PORT, (error) => {
+  if (error) {
+    console.log("Server is not running on PORT", PORT, error);
+  }
+  console.log("Server is up on PORT", PORT);
 });
