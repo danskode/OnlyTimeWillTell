@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time Will Tell</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Montserrat", Arial, sans-serif;
+        background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 32px;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(44, 62, 80, 0.12);
+      }
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 16px;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+      p.intro {
+        text-align: center;
+        color: #34495e;
+        margin-bottom: 32px;
+        font-size: 1.1em;
+      }
+      .time-section {
+        margin-bottom: 28px;
+      }
+      h2 {
+        color: #2c3e50;
+        margin-bottom: 8px;
+        font-size: 1.15em;
+      }
+      p.time-value {
+        font-size: 1.18em;
+        color: #34495e;
+        margin-bottom: 0;
+        background: #f7fafc;
+        padding: 10px 16px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(44, 62, 80, 0.06);
+        display: inline-block;
+      }
+      #is-it-friday {
+        text-align: center;
+        color: #27ae60;
+        margin-top: 40px;
+        font-weight: 500;
+      }
+      .footer {
+        text-align: center;
+        color: #95a5a6;
+        margin-top: 40px;
+        font-weight: 400;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Only Time Will Tell</h1>
+      <p class="intro">
+        This is my first Node.js project that will be deployed to Vercel 🤞
+      </p>
+
+      <div class="friday-is-coming">
+        <h2 id="friday-coming">Is it Friday?</h2>
+        <p id="friday-response" class="time-value">Loading...</p>
+      </div>
+
+      <div class="time-section">
+        <h2 id="zulu-time">In Zulu-time the format is:</h2>
+        <p id="zulu-time-div" class="time-value"></p>
+      </div>
+      <div class="time-section">
+        <h2 id="utc-time">Time right now in UTC format is:</h2>
+        <p id="utc-time-div" class="time-value"></p>
+      </div>
+      <div class="time-section">
+        <h2 id="iso-time">In ISO format the time is:</h2>
+        <p id="iso-time-div" class="time-value"></p>
+      </div>
+      <div class="time-section">
+        <h2 id="local-time">Your local time is:</h2>
+        <p id="local-time-div" class="time-value"></p>
+      </div>
+    </div>
+    <h2 class="footer">Made with ❤️ by Danskode</h2>
+    <script>
+      fetch("/isItFriday")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Something's wrong ...");
+          }
+          return response.json();
+        })
+        .then((result) => {
+          document.getElementById("friday-response").textContent =
+            result.isItFriday
+              ? "Yes, it is Friday! 🎉"
+              : "No, it is not Friday. 😞";
+        })
+        .catch(() => {
+          document.getElementById("friday-response").textContent =
+            "Could not load Friday status right now. Try again on Monday ...";
+        });
+
+      fetch("/zulu")
+        .then((response) => response.json())
+        .then((result) => {
+          document.getElementById("zulu-time-div").textContent =
+            "The current time in Zulu is: " + result.time;
+        });
+
+      fetch("/utc")
+        .then((response) => response.json())
+        .then((result) => {
+          document.getElementById("utc-time-div").textContent =
+            "The current time in UTC is: " + result.time;
+        });
+
+      fetch("/iso")
+        .then((response) => response.json())
+        .then((result) => {
+          document.getElementById("iso-time-div").textContent =
+            "The current time in ISO format is: " + result.time;
+        });
+
+      fetch("/local")
+        .then((response) => response.json())
+        .then((result) => {
+          document.getElementById("local-time-div").textContent =
+            "The current time in your local timezone is: " + result.time;
+        });
+    </script>
+  </body>
+</html>
