@@ -124,6 +124,10 @@
         .then((result) => {
           document.getElementById("zulu-time-div").textContent =
             "The current time in Zulu is: " + result.time;
+        })
+        .catch(() => {
+          document.getElementById("zulu-time-div").textContent =
+            "Could not load Zulu time right now.";
         });
 
       fetch("/utc")
@@ -131,6 +135,10 @@
         .then((result) => {
           document.getElementById("utc-time-div").textContent =
             "The current time in UTC is: " + result.time;
+        })
+        .catch(() => {
+          document.getElementById("utc-time-div").textContent =
+            "Could not load UTC time right now.";
         });
 
       fetch("/iso")
@@ -138,6 +146,10 @@
         .then((result) => {
           document.getElementById("iso-time-div").textContent =
             "The current time in ISO format is: " + result.time;
+        })
+        .catch(() => {
+          document.getElementById("iso-time-div").textContent =
+            "Could not load ISO time right now.";
         });
 
       fetch("/local")
@@ -145,6 +157,10 @@
         .then((result) => {
           document.getElementById("local-time-div").textContent =
             "The current time in your local timezone is: " + result.time;
+        })
+        .catch(() => {
+          document.getElementById("local-time-div").textContent =
+            "Could not load local time right now.";
         });
     </script>
   </body>
